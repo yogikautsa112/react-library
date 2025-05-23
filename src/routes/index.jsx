@@ -13,7 +13,7 @@ import FinesIndex from "../pages/books/fines/Index";
 export const router = createBrowserRouter([
     // Public Routes
     {
-        path: "/login",
+        index: true,
         element: (
             <AuthMiddleware>
                 <Login />
