@@ -9,28 +9,24 @@ import BooksIndex from "../pages/books/Index";
 import BorrowIndex from "../pages/books/borrowed/Index";
 import MemberIndex from "../pages/member/Index";
 import FinesIndex from "../pages/books/fines/Index";
+import App from "../App";
 
 export const router = createBrowserRouter([
     // Public Routes
     {
-        index: true,
-        element: (
-            <AuthMiddleware>
-                <Login />
-            </AuthMiddleware>
-        ),
+        path: "/",
+        element: <App />
+    },
+    {
+        path: "/login",
+        element: <Login />
     },
     {
         path: "/register",
-        element: (
-            <AuthMiddleware>
-                <Register />
-            </AuthMiddleware>
-        ),
+        element: <Register />
     },
-    // Protected Routes
+    // Protected Routes with MainLayout
     {
-        path: "/",
         element: (
             <AuthMiddleware>
                 <MainLayout />
@@ -38,25 +34,25 @@ export const router = createBrowserRouter([
         ),
         children: [
             {
-                path: "dashboard",
-                element: <Dashboard />,
+                path: "/dashboard",
+                element: <Dashboard />
             },
             {
-                path: "members",
-                element: <MemberIndex />,
+                path: "/books",
+                element: <BooksIndex />
             },
             {
-                path: "books",
-                element: <BooksIndex />,
+                path: "/members",
+                element: <MemberIndex />
             },
             {
-                path: "borrowing",
-                element: <BorrowIndex />,
+                path: "/borrowing",
+                element: <BorrowIndex />
             },
             {
-                path: "fines",
-                element: <FinesIndex />,
-            },
-        ],
-    },
+                path: "/fines",
+                element: <FinesIndex />
+            }
+        ]
+    }
 ]);

@@ -59,11 +59,12 @@ export default function Dashboard() {
                 // Calculate book statistics
                 const totalBooks = books.length;
                 const borrowedBooks = borrows.filter(borrow => borrow.status !== 'dikembalikan').length;
+                const availableBooks = Math.max(0, totalBooks - borrowedBooks); // Memastikan tidak negatif
 
                 setBookStats({
                     total: totalBooks,
                     borrowed: borrowedBooks,
-                    available: totalBooks - borrowedBooks
+                    available: availableBooks
                 });
 
                 setMemberStats({
