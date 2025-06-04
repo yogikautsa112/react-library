@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { API_URL } from '../../constant'
 import Modal from '../../components/Modal'
-import Pagination from '../../components/Pagination' // Tambahkan import ini
+import Pagination from '../../components/Pagination'
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import MemberPDF from '../../components/MemberPDF';
 import BorrowingHistoryPDF from '../../components/BorrowingHistoryPDF';
@@ -245,7 +245,8 @@ export default function MemberIndex() {
             console.log('Delete response:', response.data)
             setSuccessMessage('Member berhasil dihapus')
             setIsDeleteModalOpen(false)
-            fetchMembers() // Refresh data
+            await fetchMembers() // Wait for the data to be refreshed
+            window.location.reload() // Refresh the page to ensure clean state
         } catch (err) {
             console.error('Error deleting member:', err)
             setError(err.response?.data?.message || 'Gagal menghapus member')
@@ -317,7 +318,7 @@ export default function MemberIndex() {
                                         fileName={`Laporan_Member_${new Date().toLocaleDateString('id-ID')}.pdf`}
                                         className="flex items-center"
                                     >
-                                        {({ blob, url, loading, error }) =>
+                                        {({ loading }) =>
                                             loading ? (
                                                 <>
                                                     <svg className="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -670,7 +671,7 @@ export default function MemberIndex() {
                                     fileName={`Riwayat_Peminjaman_${currentMember.nama}_${new Date().toLocaleDateString('id-ID')}.pdf`}
                                     className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200"
                                 >
-                                    {({ blob, url, loading, error }) =>
+                                    {({ loading }) =>
                                         loading ? 'Menyiapkan PDF...' : 'Download PDF'
                                     }
                                 </PDFDownloadLink>

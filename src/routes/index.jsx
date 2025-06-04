@@ -10,27 +10,42 @@ import BorrowIndex from "../pages/books/borrowed/Index";
 import MemberIndex from "../pages/member/Index";
 import FinesIndex from "../pages/books/fines/Index";
 import App from "../App";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 export const router = createBrowserRouter([
     // Public Routes
     {
         path: "/",
-        element: <App />
+        element: (
+            <ErrorBoundary>
+                <App />
+            </ErrorBoundary>
+        )
     },
     {
         path: "/login",
-        element: <Login />
+        element: (
+            <ErrorBoundary>
+                <Login />
+            </ErrorBoundary>
+        )
     },
     {
         path: "/register",
-        element: <Register />
+        element: (
+            <ErrorBoundary>
+                <Register />
+            </ErrorBoundary>
+        )
     },
     // Protected Routes with MainLayout
     {
         element: (
-            <AuthMiddleware>
-                <MainLayout />
-            </AuthMiddleware>
+            <ErrorBoundary>
+                <AuthMiddleware>
+                    <MainLayout />
+                </AuthMiddleware>
+            </ErrorBoundary>
         ),
         children: [
             {
